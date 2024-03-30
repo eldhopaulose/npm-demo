@@ -1,36 +1,47 @@
 #!/usr/bin/env node
 
 const { execSync } = require("child_process");
-const runComand = (comand) => {
+
+const runCommand = (command) => {
   try {
-    execSync(`${comand}`, { stdio: "inherit" });
+    execSync(command, { stdio: "inherit" });
+    return true;
   } catch (error) {
-    console.error(`Failed to run comand: ${comand}`);
-    // process.exit(1);
+    console.error(`Failed to run command: ${command}`);
     return false;
   }
-  return true;
 };
 
 const repoName = process.argv[2];
-const gitChekoutComand = `git clone --depth 1 https://github.com/eldhopaulose/npm-demo ${repoName}`;
 
-console.log(`Cloneing repo ${repoName}...`);
+if (!repoName) {
+  console.error("Please provide a repository name.");
+  process.exit(1);
+}
 
-const checkedOut = runComand(gitChekoutComand);
+const gitCheckoutCommand = `git clone --depth 1 https://github.com/eldhopaulose/npm-demo ${repoName}`;
 
-if (checkedOut) process.exit(-1);
+console.log(`Cloning repo ${repoName}...`);
 
-const installComand = `cd ${repoName} && npm install `;
+const checkedOut = runCommand(gitCheckoutCommand);
+
+if (!checkedOut) {
+  console.error("Failed to clone repository. Exiting...");
+  process.exit(1);
+}
+
+const installCommand = `cd ${repoName} && npm install`;
 
 console.log(`Installing dependencies...`);
 
-const installed = runComand(installComand);
+const installed = runCommand(installCommand);
 
-if (installed) process.exit(-1);
+if (!installed) {
+  console.error("Failed to install dependencies. Exiting...");
+  process.exit(1);
+}
 
-console.log(
-  `Congrats! You are all set up! Follow the below steps to run the project:`
-);
+console.log("Congrats! You are all set up!");
+console.log("Follow the below steps to run the project:");
 console.log(`cd ${repoName}`);
-console.log(`npm start || yarn start`);
+console.log("npm start");
