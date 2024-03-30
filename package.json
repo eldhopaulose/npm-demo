@@ -2,9 +2,7 @@
   "name": "@eldhopaulose/demo",
   "version": "1.0.5",
   "main": "index.js",
-  "bin": {
-    "demo2": "./bin/cli.js"
-  },
+  "bin": "./bin/cli.js",
   "license": "MIT",
   "postinstall": "npx husky install",
   "scripts": {
