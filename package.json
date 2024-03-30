@@ -1,7 +1,15 @@
 {
-  "name": "demo",
+  "name": "@eldhopaulose/demo",
   "version": "1.0.0",
   "main": "index.js",
-  "bin": "./bin/cli/js",
-  "license": "MIT"
+  "bin": "./bin/cli.js",
+  "license": "MIT",
+  "postinstall": "npx husky install",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
 }
